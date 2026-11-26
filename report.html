@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>极限五选一 · 线上反馈报告</title>
+<link rel="icon" href="data:,">
+<style>
+  :root {
+    --bg: #fdf3e7; --bg2: #fbe8d3; --panel: #fffaf2; --line: #eed9c0;
+    --text: #5b4332; --dim: #a5836a; --accent: #e0815a; --accent2: #d95f43;
+    --gold: #c9962e; --card-bg: #fffdf8;
+    --shadow: 0 8px 24px rgba(190, 130, 80, 0.18);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--text);
+    font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffe3c2 0%, transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #ffd9c0 0%, transparent 55%),
+      linear-gradient(160deg, var(--bg), var(--bg2));
+    min-height: 100%;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 22px 16px 40px; }
+  header { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+  .brand { font-size: 22px; font-weight: 700; letter-spacing: 2px; color: var(--accent2); }
+  .live { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; color: var(--dim); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #4caf6d; box-shadow: 0 0 0 0 rgba(76,175,109,.5); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(76,175,109,0); } 100% { box-shadow: 0 0 0 0 rgba(76,175,109,0); } }
+  .sub { font-size: 13px; color: var(--dim); margin-bottom: 18px; }
+  .sub a { color: var(--accent2); text-decoration: none; border-bottom: 1px dashed var(--accent); }
+
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .kpi { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow); padding: 16px 18px; }
+  .kpi b { display: block; font-size: 26px; color: var(--accent2); line-height: 1.2; }
+  .kpi span { font-size: 12px; color: var(--dim); }
+
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 20px 22px; margin-bottom: 18px; }
+  h2 { font-size: 15px; margin: 0 0 14px; letter-spacing: 1px; }
+  h2 small { font-weight: 400; color: var(--dim); font-size: 11px; margin-left: 8px; }
+
+  .bar-row { display: grid; grid-template-columns: 92px 1fr 64px; align-items: center; gap: 10px; margin: 9px 0; }
+  .bar-label { font-size: 13px; text-align: right; color: var(--text); white-space: nowrap; }
+  .bar-track { background: var(--bg2); border-radius: 999px; height: 18px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .6s ease; min-width: 2px; }
+  .bar-fill.top { background: linear-gradient(90deg, var(--gold), #e0b34e); }
+  .bar-fill.lost { background: linear-gradient(90deg, #9e9e9e, #757575); }
+  .bar-num { font-size: 12px; color: var(--dim); white-space: nowrap; }
+
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  .mode { background: var(--card-bg); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+  .mode b { font-size: 16px; color: var(--accent2); }
+  .mode p { margin: 6px 0 0; font-size: 12px; color: var(--dim); line-height: 1.7; }
+
+  .eggs { display: flex; flex-wrap: wrap; gap: 8px; }
+  .egg { background: var(--card-bg); border: 1px dashed var(--gold); color: var(--text); border-radius: 999px; padding: 5px 12px; font-size: 12px; }
+  .egg i { font-style: normal; color: var(--gold); font-weight: 700; margin-left: 4px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; color: var(--dim); font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 7px 8px; border-bottom: 1px dashed var(--line); vertical-align: top; }
+  td.final { color: var(--accent2); font-weight: 700; white-space: nowrap; }
+  td.final.lost { color: #8a8a8a; }
+  .tag { display: inline-block; font-size: 10px; border-radius: 999px; padding: 1px 8px; border: 1px solid var(--line); color: var(--dim); margin-right: 4px; white-space: nowrap; }
+  .tag.rw { border-color: var(--gold); color: var(--gold); }
+  .track { color: var(--dim); }
+
+  .foot { text-align: center; font-size: 11px; color: var(--dim); margin-top: 6px; line-height: 1.8; }
+  .state { text-align: center; color: var(--dim); font-size: 13px; padding: 30px 0; }
+  .err { color: #b3552e; }
+  @media (max-width: 520px) { .bar-row { grid-template-columns: 74px 1fr 58px; } .bar-label { font-size: 12px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">极限五选一 · 线上反馈报告</div>
+    <div class="live"><span class="dot"></span><span id="liveText">连接中…</span></div>
+  </header>
+  <div class="sub">每位玩家的结局都被认真记下。本页数据来自游戏云端数据库，<b id="refreshIn">20</b> 秒后自动刷新 · <a href="https://extreme-five-choose-one.app.workbuddy.host/?sharecode=ZYDZXYES2V" target="_blank" rel="noopener">去玩一局 ↗</a></div>
+
+  <div id="content"><div class="state">正在读取云端数据…</div></div>
+
+  <div class="foot">数据每次游玩实时写入 · 报告页自动汇总<br>「极限五选一」人生价值排序 · 千冉的运行日记</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script>
+(function () {
+  var cloud = null;
+  try {
+    cloud = WorkBuddyCloud.createWorkBuddyCloud({
+      endpoint: "https://extreme-five-choose-one.app.workbuddy.host",
+      oauthRelayBaseUrl: "https://www.workbuddy.cn/v2/as/genie-baas/oauth",
+      publishableKey: "wbpk_779c2jwjh45Yefy3hwqFkZ_meGVO4w5ZbvHEwzsh7sRcvJaaPivgkOz"
+    });
+  } catch (e) { cloud = null; }
+
+  var REFRESH_SECONDS = 20;
+  var countdown = REFRESH_SECONDS;
+  var loading = false;
+
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  function pct(n, total) { return total ? (n / total * 100).toFixed(1) + "%" : "0%"; }
+  function fmtTime(iso) {
+    try {
+      var d = new Date(iso);
+      var p = function (x) { return (x < 10 ? "0" : "") + x; };
+      return (d.getMonth() + 1) + "." + p(d.getDate()) + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+    } catch (e) { return ""; }
+  }
+
+  function analyze(rows) {
+    var total = rows.length;
+    var cards = ["事业成就", "家庭幸福", "自我成长", "社会贡献", "休闲自由", "舒适生活", "国家安全", "人际和谐"];
+    var dist = {}, modes = {}, eggs = {}, rewound = 0, lostAll = 0;
+    cards.forEach(function (c) { dist[c] = 0; });
+    rows.forEach(function (r) {
+      if (r.final_card && dist[r.final_card] != null) dist[r.final_card] += 1;
+      if (r.lost_all) lostAll += 1;
+      if (r.rewound) rewound += 1;
+      var m = r.mode || "未记录模式";
+      if (!modes[m]) modes[m] = { n: 0, rw: 0 };
+      modes[m].n += 1;
+      if (r.rewound) modes[m].rw += 1;
+      if (r.achievements) String(r.achievements).split("、").forEach(function (a) {
+        a = a.trim(); if (a) eggs[a] = (eggs[a] || 0) + 1;
+      });
+    });
+    return { total: total, dist: dist, modes: modes, eggs: eggs, rewound: rewound, lostAll: lostAll };
+  }
+
+  function render(rows) {
+    var s = analyze(rows);
+    var entries = Object.keys(s.dist).map(function (k) { return [k, s.dist[k]]; });
+    entries.sort(function (a, b) { return b[1] - a[1]; });
+    var maxN = entries.length ? Math.max(entries[0][1], 1) : 1;
+
+    var bars = entries.map(function (e, i) {
+      var cls = "bar-fill" + (i === 0 && e[1] > 0 ? " top" : "");
+      return '<div class="bar-row"><div class="bar-label">' + esc(e[0]) + '</div>' +
+        '<div class="bar-track"><div class="' + cls + '" style="width:' + (e[1] / maxN * 100) + '%"></div></div>' +
+        '<div class="bar-num">' + e[1] + ' · ' + pct(e[1], s.total) + '</div></div>';
+    }).join("");
+    bars += '<div class="bar-row"><div class="bar-label">失去一切</div>' +
+      '<div class="bar-track"><div class="bar-fill lost" style="width:' + (s.lostAll / maxN * 100) + '%"></div></div>' +
+      '<div class="bar-num">' + s.lostAll + ' · ' + pct(s.lostAll, s.total) + '</div></div>';
+
+    var modeHtml = Object.keys(s.modes).sort(function (a, b) { return s.modes[b].n - s.modes[a].n; }).map(function (m) {
+      var v = s.modes[m];
+      return '<div class="mode"><b>' + esc(m) + ' · ' + v.n + ' 局</b><p>占全部 ' + pct(v.n, s.total) +
+        (v.rw ? ' · 其中 ' + v.rw + ' 局使用时间倒流' : '') + '</p></div>';
+    }).join("");
+
+    var eggEntries = Object.keys(s.eggs).map(function (k) { return [k, s.eggs[k]]; });
+    eggEntries.sort(function (a, b) { return b[1] - a[1]; });
+    var eggHtml = eggEntries.length
+      ? eggEntries.map(function (e) { return '<span class="egg">' + esc(e[0]) + '<i>×' + e[1] + '</i></span>'; }).join("")
+      : '<span class="state" style="padding:6px 0">还没有人触发彩蛋</span>';
+
+    var recent = rows.slice(0, 8).map(function (r) {
+      var fin = r.final_card ? esc(r.final_card) : "失去一切";
+      var cls = "final" + (r.final_card ? "" : " lost");
+      var tags = (r.mode ? '<span class="tag">' + esc(r.mode) + "</span>" : "") +
+        (r.rewound ? '<span class="tag rw">时间倒流</span>' : "") +
+        (r.lost_all ? '<span class="tag">失去一切</span>' : "");
+      return "<tr><td>" + fmtTime(r.created_at) + "</td><td>" + tags + "</td>" +
+        '<td class="' + cls + '">' + fin + "</td>" +
+        '<td class="track">' + esc((r.track || "").replace(/→/g, " → ")) + "</td></tr>";
+    }).join("");
+
+    document.getElementById("content").innerHTML =
+      '<div class="kpis">' +
+        '<div class="kpi"><b>' + s.total + '</b><span>累计游玩人次</span></div>' +
+        '<div class="kpi"><b>' + esc(entries.length && entries[0][1] ? entries[0][0] : "—") + '</b><span>最多人留下的结局</span></div>' +
+        '<div class="kpi"><b>' + pct(s.rewound, s.total) + '</b><span>时间倒流使用率</span></div>' +
+        '<div class="kpi"><b>' + s.lostAll + '</b><span>「失去一切」人次</span></div>' +
+      '</div>' +
+      '<section><h2>结局分布<small>最后留下的那张牌</small></h2>' + bars + '</section>' +
+      '<section><h2>模式对比</h2><div class="modes">' + modeHtml + '</div></section>' +
+      '<section><h2>触发彩蛋<small>隐藏剧情</small></h2><div class="eggs">' + eggHtml + '</div></section>' +
+      '<section><h2>最近 8 局</h2><table><thead><tr><th>时间</th><th>模式</th><th>最终结局</th><th>舍弃轨迹</th></tr></thead><tbody>' +
+        (recent || '<tr><td colspan="4">暂无记录</td></tr>') + '</tbody></table></section>';
+  }
+
+  function load() {
+    if (loading) return;
+    loading = true;
+    document.getElementById("liveText").textContent = "刷新中…";
+    var q = cloud.database.from("game_results").select("*").order("created_at", { ascending: false }).limit(1000);
+    q.then(function (res) {
+      loading = false;
+      var rows = Array.isArray(res) ? res : (res && res.data) || [];
+      render(rows);
+      document.getElementById("liveText").textContent = "实时 · 更新于 " + fmtTime(new Date().toISOString());
+      countdown = REFRESH_SECONDS;
+    }).catch(function (err) {
+      loading = false;
+      document.getElementById("liveText").textContent = "连接异常";
+      document.getElementById("content").innerHTML =
+        '<div class="state err">数据读取失败：' + esc(err && err.message || err) + '<br>将在下次刷新时重试。</div>';
+      countdown = REFRESH_SECONDS;
+    });
+  }
+
+  setInterval(function () {
+    countdown -= 1;
+    var el = document.getElementById("refreshIn");
+    if (el) el.textContent = countdown > 0 ? countdown : 0;
+    if (countdown <= 0) { countdown = REFRESH_SECONDS; load(); }
+  }, 1000);
+
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) load();
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>

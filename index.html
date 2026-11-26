@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="EbZD5hDKxgeSqMqg3Z2DbC">
+<head data-page-node-id="XqWlwfoEttLlGhFCtql27k">
+<meta charset="utf-8" data-page-node-id="nOeQ0ishLqO2AFx2cXMvl9">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" data-page-node-id="Ce4fxDxIEF8m1yzEICspHr">
+<title>极限五选一 · 人生取舍</title>
+<link rel="icon" href="data:," data-page-node-id="svAtPeS8mS7fKsc2Iw05Pv">
+<style>
+  :root {
+    --bg: #fdf3e7;
+    --bg2: #fbe8d3;
+    --panel: #fffaf2;
+    --line: #eed9c0;
+    --text: #5b4332;
+    --dim: #a5836a;
+    --accent: #e0815a;
+    --accent2: #d95f43;
+    --gold: #c9962e;
+    --card-bg: #fffdf8;
+    --shadow: 0 8px 24px rgba(190, 130, 80, 0.18);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #ffe3c2 0%, transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #ffd9c0 0%, transparent 55%),
+      linear-gradient(160deg, var(--bg), var(--bg2));
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 6px;
+  }
+  .brand { font-size: 15px; letter-spacing: 4px; font-weight: 700; color: var(--accent2); }
+
+  main {
+    width: 100%;
+    max-width: 720px;
+    flex: 1 1 auto;
+    padding: 10px 18px calc(28px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stage {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 26px 22px;
+    animation: fadeUp .5s ease both;
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .game-title {
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 10px;
+    font-weight: 800;
+    color: var(--accent2);
+    margin: 8px 0 4px;
+  }
+  .game-sub { text-align: center; font-size: 13px; color: var(--dim); letter-spacing: 2px; margin-bottom: 18px; }
+  .lead { font-size: 15px; line-height: 2; text-align: center; color: var(--text); }
+
+  .prompt {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.9;
+    margin: 4px 0 18px;
+  }
+  .prompt b { color: var(--accent2); }
+
+  .round-tag {
+    display: inline-block;
+    font-size: 12px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 999px;
+    padding: 3px 14px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .center { text-align: center; }
+
+  /* ---------- 卡牌 ---------- */
+  .hand { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 8px 0 4px; }
+  .vcard {
+    min-width: 128px;
+    padding: 18px 16px;
+    background: var(--card-bg);
+    border: 2px solid var(--line);
+    border-radius: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text);
+    cursor: pointer;
+    user-select: none;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(190, 130, 80, 0.14);
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    font-family: inherit;
+  }
+  .vcard:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .vcard:active { transform: scale(0.96); }
+  .vcard .ico { display: block; font-size: 26px; margin-bottom: 8px; }
+  .vcard.still { cursor: default; }
+  .vcard.still:hover { transform: none; border-color: var(--line); }
+
+  .narrative {
+    font-size: 15px;
+    line-height: 2.1;
+    text-align: justify;
+    margin: 6px 0;
+    white-space: pre-wrap;
+  }
+  .narrative em { font-style: normal; color: var(--accent2); font-weight: 700; }
+
+  .btn {
+    display: block;
+    margin: 22px auto 0;
+    padding: 13px 34px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    font-family: inherit;
+    color: #fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(217, 95, 67, 0.35);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn.ghost {
+    background: transparent;
+    color: var(--dim);
+    border: 1px solid var(--line);
+    box-shadow: none;
+  }
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-row .btn { margin: 22px 0 0; }
+
+  .mode-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
+  .mode-card {
+    width: 150px;
+    padding: 18px 12px;
+    border-radius: 16px;
+    border: 2px solid var(--line);
+    background: var(--card-bg);
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .mode-card:hover { transform: translateY(-3px); }
+  .mode-card.warm { border-color: #e8a37c; }
+  .mode-card.serious { border-color: #8a93a3; background: #f4f5f7; }
+  .mode-card .mt { font-size: 17px; font-weight: 800; letter-spacing: 3px; margin-bottom: 6px; }
+  .mode-card .md { font-size: 12px; color: var(--dim); line-height: 1.7; }
+
+  .divider { height: 1px; background: var(--line); margin: 20px 0; }
+  .stat-line { text-align: center; font-size: 14px; color: var(--dim); margin-top: 14px; line-height: 1.9; }
+  .stat-line b { color: var(--accent2); font-size: 18px; }
+
+  /* ---------- 海报 ---------- */
+  #posterMask {
+    position: fixed;
+    inset: 0;
+    background: rgba(70, 45, 30, 0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 24px 14px 40px;
+    z-index: 50;
+  }
+  #posterMask.show { display: flex; }
+  .poster {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    animation: fadeUp .45s ease both;
+  }
+  .poster.warm {
+    background: linear-gradient(170deg, #fff6ea, #ffe9d2 55%, #ffddc2);
+    color: #6b4a33;
+    border: 1px solid #f3d9bd;
+  }
+  .poster.serious {
+    background: linear-gradient(170deg, #232a33, #2e3641 55%, #232a33);
+    color: #dfe5ec;
+    border: 1px solid #46505d;
+  }
+  .p-head { padding: 26px 22px 14px; text-align: center; }
+  .p-head .pt { font-size: 21px; font-weight: 800; letter-spacing: 6px; }
+  .p-head .ps { font-size: 11px; letter-spacing: 3px; opacity: .65; margin-top: 6px; }
+  .p-body { padding: 0 22px 24px; }
+  /* 模式专属金句 */
+  .p-quote {
+    margin: 2px 0 4px; padding: 12px 8px 0;
+    text-align: center; font-size: 12.5px; letter-spacing: 1.5px; line-height: 1.9;
+  }
+  .poster.warm .p-quote { color: #b9764f; }
+  .poster.serious .p-quote { color: #b9a074; }
+  .p-quote::before { content: "「"; opacity: .55; }
+  .p-quote::after { content: "」"; opacity: .55; }
+  .p-sec-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .p-sec-title::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .25; }
+  .p-ending {
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 13.5px;
+    line-height: 2;
+    text-align: justify;
+  }
+  .poster.warm .p-ending { background: rgba(255, 255, 255, 0.65); border: 1px solid #f3d9bd; }
+  .poster.serious .p-ending { background: rgba(255, 255, 255, 0.06); border: 1px solid #46505d; }
+  .p-ending .big { font-size: 17px; font-weight: 800; letter-spacing: 2px; display: block; margin-bottom: 8px; text-align: center; }
+  .poster.warm .p-ending .big { color: #d95f43; }
+  .poster.serious .p-ending .big { color: #e8c07a; }
+
+  .timeline { position: relative; margin-left: 8px; padding-left: 22px; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px; top: 6px; bottom: 6px;
+    width: 2px;
+    border-radius: 2px;
+  }
+  .poster.warm .timeline::before { background: linear-gradient(#e8a37c, #d95f43); }
+  .poster.serious .timeline::before { background: linear-gradient(#8a93a3, #e8c07a); }
+  .tl-item { position: relative; padding-bottom: 14px; font-size: 12.5px; line-height: 1.9; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -21px; top: 7px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+  }
+  .poster.warm .tl-item::before { background: #d95f43; box-shadow: 0 0 0 3px #ffd9bd; }
+  .poster.serious .tl-item::before { background: #e8c07a; box-shadow: 0 0 0 3px #3a4450; }
+  .tl-item .tl-t { font-weight: 800; letter-spacing: 1px; }
+  .poster.warm .tl-item .tl-t { color: #c25a3a; }
+  .poster.serious .tl-item .tl-t { color: #e8c07a; }
+  .tl-item .tl-d { opacity: .82; }
+
+  .p-foot { display: flex; gap: 14px; align-items: center; margin-top: 22px; }
+  .p-qr {
+    flex: 0 0 108px;
+    width: 108px; height: 108px;
+    border-radius: 12px;
+    background: #fff;
+    padding: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .p-qr img { width: 100%; height: 100%; display: block; }
+  .p-invite { flex: 1; font-size: 12.5px; line-height: 2; }
+  .p-invite .b { font-weight: 800; font-size: 14px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+  .p-stat { margin-top: 16px; text-align: center; font-size: 12px; opacity: .75; letter-spacing: 1px; }
+  .p-close-row { text-align: center; margin-top: 18px; }
+  .p-close-row .btn { margin-top: 0; }
+  .p-tip { text-align: center; font-size: 11px; opacity: .55; margin-top: 10px; }
+
+  /* ---------- 双主题：严肃（冷色+线条） / 温暖（暖色+圆圈） ---------- */
+  .decor { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  header, main { position: relative; z-index: 1; }
+  .deco-circle { position: absolute; border-radius: 50%; }
+  .deco-line { position: absolute; height: 2px; border-radius: 2px; transform-origin: left center; }
+
+  body.theme-serious {
+    --bg: #edf0f4;
+    --bg2: #dde3ec;
+    --panel: #f8fafc;
+    --line: #c2ccd9;
+    --text: #3b4453;
+    --dim: #7e8b9d;
+    --accent: #5d7fa3;
+    --accent2: #3f5d82;
+    --gold: #7e8b9d;
+    --card-bg: #ffffff;
+    --shadow: 0 8px 24px rgba(70, 95, 125, 0.16);
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #dde6f0 0%, transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, #d3dce8 0%, transparent 55%),
+      linear-gradient(160deg, #edf0f4, #dde3ec);
+  }
+  body.theme-serious .brand { color: var(--accent2); }
+  body.theme-serious .game-title { color: var(--accent2); }
+  body.theme-serious .mode-card.serious { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(63, 93, 130, 0.15); }
+
+  body.theme-warm .mode-card.warm { box-shadow: 0 0 0 3px rgba(217, 95, 67, 0.15); }
+
+  body, .stage, .vcard, .mode-card, .btn, .brand, .game-title, .prompt b, .stat-line b {
+    transition: background .6s ease, color .6s ease, border-color .6s ease, box-shadow .6s ease;
+  }
+
+  /* ---------- 彩蛋强化弹窗 ---------- */
+  @keyframes egFade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes egPop { 0% { opacity: 0; transform: scale(.84) translateY(22px); } 62% { opacity: 1; transform: scale(1.05) translateY(0); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+  @keyframes egSpin { to { transform: rotate(360deg); } }
+  @keyframes egGlow { 0%, 100% { box-shadow: 0 0 0 6px rgba(255,214,138,.30), 0 10px 24px rgba(180,90,20,.35); } 50% { box-shadow: 0 0 0 12px rgba(255,214,138,.16), 0 10px 30px rgba(180,90,20,.5); } }
+  .egg-mask {
+    position: fixed; inset: 0; z-index: 60; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(58, 36, 22, .58);
+  }
+  .egg-mask.show { display: flex; animation: egFade .3s ease both; }
+  .egg-card {
+    position: relative; width: min(480px, 94vw); max-height: 88vh; overflow-y: auto;
+    text-align: center; padding: 32px 26px 24px; border-radius: 22px;
+    background: linear-gradient(165deg, #fff7e8, #ffe3c2);
+    border: 2px solid #e8b06a;
+    box-shadow: 0 26px 70px rgba(120, 60, 20, .42);
+    animation: egPop .55s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+  .egg-rays {
+    position: absolute; left: 50%; top: 84px; width: 460px; height: 460px;
+    margin-left: -230px; margin-top: -230px; pointer-events: none;
+    background: conic-gradient(from 0deg, rgba(255,196,84,.34) 0 5deg, transparent 5deg 28deg);
+    animation: egSpin 16s linear infinite;
+  }
+  .egg-badge {
+    position: relative; width: 96px; height: 96px; margin: 0 auto 14px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 42px;
+    background: radial-gradient(circle at 34% 28%, #ffdc93, #df8728);
+    animation: egGlow 2.4s ease-in-out infinite;
+  }
+  .egg-kicker { font-size: 12px; letter-spacing: 6px; color: #b4712a; font-weight: 700; }
+  .egg-title { font-size: 22px; font-weight: 800; color: #8a4a17; margin: 8px 0 2px; letter-spacing: 2px; }
+  .egg-ach {
+    display: inline-block; margin: 14px auto 2px; padding: 9px 20px; border-radius: 999px;
+    background: #8a4a17; color: #ffe9c4; font-weight: 800; letter-spacing: 3px; font-size: 14px;
+  }
+  .egg-text { margin-top: 16px; font-size: 14.5px; line-height: 2; color: #6d4522; text-align: left; white-space: pre-line; }
+  .egg-btn { margin-top: 20px; }
+  .egg-btn .btn { margin-top: 0; }
+  .p-ach { margin-top: 16px; text-align: center; }
+  .p-ach .p-ach-item {
+    display: inline-block; margin: 4px 4px 0; padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 800; letter-spacing: 1px;
+  }
+  .poster.warm .p-ach-item { background: rgba(217,95,67,.12); color: #c25a3a; border: 1px solid #f0c3a8; }
+  .poster.serious .p-ach-item { background: rgba(232,192,122,.12); color: #b98f45; border: 1px solid #5b6270; }
+
+  /* 海报上的成就收集进度 */
+  .p-achbar { border-radius: 14px; padding: 14px 16px; }
+  .poster.warm .p-achbar { background: rgba(255,255,255,.65); border: 1px solid #f3d9bd; }
+  .poster.serious .p-achbar { background: rgba(255,255,255,.06); border: 1px solid #46505d; }
+  .p-achbar-top { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; font-weight: 800; letter-spacing: 1px; }
+  .p-achbar-top .n { font-size: 16px; letter-spacing: 0; }
+  .poster.warm .p-achbar-top .n { color: #d95f43; }
+  .poster.serious .p-achbar-top .n { color: #e8c07a; }
+  .p-achbar-track { margin-top: 9px; height: 7px; border-radius: 99px; overflow: hidden; }
+  .poster.warm .p-achbar-track { background: #f6e2cd; }
+  .poster.serious .p-achbar-track { background: #3a4450; }
+  .p-achbar-track > i { display: block; height: 100%; border-radius: 99px; }
+  .poster.warm .p-achbar-track > i { background: #d95f43; }
+  .poster.serious .p-achbar-track > i { background: #e8c07a; }
+  .p-achbar-icons { margin-top: 12px; display: flex; gap: 10px; justify-content: center; }
+  .p-ach-ico {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 17px;
+  }
+  .poster.warm .p-ach-ico { background: #ffe3c7; }
+  .poster.serious .p-ach-ico { background: #39424f; }
+  .p-ach-ico.off { opacity: .35; }
+  .p-ach-new { margin-top: 12px; text-align: center; font-size: 12px; font-weight: 800; letter-spacing: 1px; }
+  .poster.warm .p-ach-new { color: #c25a3a; }
+  .poster.serious .p-ach-new { color: #e8c07a; }
+
+  /* ---------- 成就墙 ---------- */
+  .ach-entry {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 18px;
+    padding: 9px 20px; border-radius: 999px; cursor: pointer; font-family: inherit;
+    font-size: 13px; font-weight: 700; letter-spacing: 1px;
+    border: 1px dashed var(--line); background: transparent; color: var(--muted, var(--text));
+    opacity: .82; transition: transform .18s ease, opacity .18s ease;
+  }
+  .ach-entry:hover { opacity: 1; }
+  .ach-entry:active { transform: scale(.96); }
+  .ach-entry .ach-dot { width: 7px; height: 7px; border-radius: 50%; background: #df8728; box-shadow: 0 0 8px rgba(223,135,40,.8); }
+  .ach-mask {
+    position: fixed; inset: 0; z-index: 70; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(58, 36, 22, .6);
+  }
+  .ach-mask.show { display: flex; animation: egFade .3s ease both; }
+  .ach-card {
+    position: relative; width: min(460px, 94vw); max-height: 88vh; overflow-y: auto;
+    padding: 26px 22px 20px; border-radius: 22px; text-align: center;
+    background: linear-gradient(165deg, #fff8ea, #ffe6c8);
+    border: 2px solid #e8b06a;
+    box-shadow: 0 26px 70px rgba(120, 60, 20, .42);
+    animation: egPop .5s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+  .ach-hd { font-size: 20px; font-weight: 800; color: #8a4a17; letter-spacing: 4px; }
+  .ach-prog { margin-top: 6px; font-size: 12.5px; color: #a9793c; letter-spacing: 1px; }
+  .ach-bar { margin: 12px auto 4px; width: 78%; height: 7px; border-radius: 999px; background: rgba(160,110,50,.18); overflow: hidden; }
+  .ach-bar > i { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #ffca6a, #df8728); transition: width .6s ease; }
+  .ach-grid { margin-top: 16px; display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .ach-item {
+    display: flex; align-items: center; gap: 14px; text-align: left;
+    padding: 14px 16px; border-radius: 16px;
+    background: rgba(255,255,255,.72); border: 1px solid #f0d3a6;
+  }
+  .ach-item.locked { background: rgba(238,226,208,.55); border-style: dashed; border-color: #dcc19c; }
+  .ach-ico {
+    flex: 0 0 52px; width: 52px; height: 52px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 26px;
+    background: radial-gradient(circle at 34% 28%, #ffdc93, #df8728);
+    box-shadow: 0 6px 16px rgba(180,90,20,.28);
+  }
+  .ach-item.locked .ach-ico { background: #e3d6c2; box-shadow: none; filter: grayscale(1); opacity: .7; }
+  .ach-name { font-size: 15.5px; font-weight: 800; color: #8a4a17; letter-spacing: 1px; }
+  .ach-item.locked .ach-name { color: #a08a70; }
+  .ach-sub { margin-top: 4px; font-size: 12.5px; line-height: 1.7; color: #8b6a48; }
+  .ach-item.locked .ach-sub { color: #a8927a; font-style: italic; }
+  .ach-close { margin-top: 18px; }
+
+  @media (max-width: 560px) {
+    .game-title { font-size: 25px; letter-spacing: 7px; }
+    .vcard { min-width: 44%; padding: 15px 10px; font-size: 16px; }
+    .stage { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body data-page-node-id="MUb80rhN5CJBCHt8KTC8CF">
+
+<div class="decor" id="decor"></div>
+
+<header data-page-node-id="eRAPthWjOlOQNDOqrECCzG">
+  <div class="brand" data-page-node-id="Ir1zvVlxrpw1WJw012ICci">极限五选一</div>
+  <a href="report.html?sharecode=ZYDZXYES2V" target="_blank" rel="noopener" style="font-size:12px;color:#a5836a;text-decoration:none;border-bottom:1px dashed #d95f43;">线上反馈报告 ↗</a>
+</header>
+
+<main id="app" data-page-node-id="aMJrvzP7ssZhP6nSBnmF7r"></main>
+
+<div id="posterMask" data-page-node-id="PPcXTsWtA2ZPInW1oLOjVx">
+  <div style="width:100%;max-width:420px;" data-page-node-id="taaoKoMZ7AVxgDslh19vXP">
+    <div class="poster warm" id="poster" data-page-node-id="szg0sNoUPIPznQ9yPK1rin"></div>
+    <div class="p-close-row" data-page-node-id="rxq4YjB8vtBhmSFZP33DLp">
+      <button class="btn" id="posterSave" data-page-node-id="savePosterBtn">保存海报到相册</button>
+      <button class="btn ghost" id="posterClose" data-page-node-id="VLQDLvhGi807kqtpZYYrEc">收起报告</button>
+      <div class="p-tip" id="posterTip" data-page-node-id="UNeVTv0bCGDtfZ4O2W813o">点「保存海报」下载 PNG；手机端也可长按海报图片保存</div>
+      <div id="posterImgBox" style="display:none;margin-top:14px;">
+        <img id="posterImg" alt="结果报告海报" style="width:100%;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <div class="p-tip">长按上方图片即可保存到相册</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  /* ================= 数据（与原 Python 代码一致） ================= */
+  var ALL = ["事业成就", "家庭幸福", "自我成长", "社会贡献", "休闲自由", "舒适生活", "国家安全", "人际和谐"];
+  var ICONS = { "事业成就": "🏔️", "家庭幸福": "🏠", "自我成长": "🌱", "社会贡献": "🕯️", "休闲自由": "🍃", "舒适生活": "🛋️", "国家安全": "🛡️", "人际和谐": "🤝" };
+
+  var EFFECT_TEXT = {
+    "舒适生活": "你失去了舒适的椅子，接下来的游戏请站着玩。",
+    "休闲自由": "你失去了休闲坐着的自由，接下来请全程挺直腰板玩游戏。"
+  };
+  var PENALTY_TEXT = {
+    "人际和谐": "你失去了和谐的人际关系，小组内拥有“人际和谐”卡牌者可挑走你的一张牌，作为对 Ta 悉心经营人际关系的奖励。",
+    "社会贡献": "你放弃了为社会做出贡献，小组内拥有“社会贡献”卡牌者可挑走你的一张牌，作为对 Ta 贡献的奖励。",
+    "国家安全": "你放弃了国家安全，你左手边的同学可以抢夺走一张你的牌，你无法拒绝！"
+  };
+  var PENALTY_EXTRA = "（模拟抽签）你被挑走了一张牌：";
+
+  var KEPT_ENDING = {
+    "事业成就": { figure: "张骞", text: "你的“人生观”和张骞很类似，他把完成开拓西域、打通丝路的宏大事业视作人生最高追求。他有机会留在长安安稳度日，但他毅然出使。舍弃舒适生活、家庭长久陪伴，九死一生，把打通中西通道这一事业成就放在首位。" },
+    "家庭幸福": { figure: "介子推", text: "你的“人生观”和介子推很类似，他认为与亲人相守、保全小家安宁是人生最重要的追求。助晋文公复国大功告成，他本可接受高官厚禄，收获功业与名望；但他拒绝封赏，带着母亲归隐山林。舍弃朝堂功名、社会荣誉，只求母子相伴，将家庭幸福作为人生首要选择。" },
+    "自我成长": { figure: "徐霞客", text: "你的“人生观”和徐霞客很类似，他把游历山河、探索自然，求知悟道，实现自我认知与精神成长视为人生核心。他放弃科举入仕的仕途道路，舍弃安稳生活、世俗功名，一生跋山涉水考察山川地貌，以认识世界、丰盈自我作为毕生目标。" },
+    "社会贡献": { figure: "焦裕禄", text: "你的“人生观”和焦裕禄很类似，他认为为民除灾、造福百姓，服务苍生是人生根本意义。他有机会留在条件优渥的地方工作，却主动扎根兰考。舍弃舒适生活、个人休闲，透支健康治沙救民，将社会贡献置于个人得失之上。" },
+    "休闲自由": { figure: "陶渊明", text: "你的“人生观”和陶渊明很类似，精神自在、不被官场束缚，拥有内心的休闲自由是他的人生追求。他本可继续做官，获得俸禄与事业地位；但不愿屈从官场规则，不为五斗米折腰，辞官归隐田园，舍弃仕途功业，换取精神自由。" },
+    "舒适生活": { figure: "颜回", text: "你的“人生观”和颜回很类似，他把安于简朴宁静的舒适内心生活，守住简单自足的生活状态视为他的“人生观”。他有机会做官获取富贵物质享受，但他选择陋巷简居，一箪食一瓢饮。舍弃功名利禄，选择简朴安宁、内心安稳的舒适生活，安贫乐道。" },
+    "国家安全": { figure: "岳飞", text: "你的“人生观”和岳飞很类似，他把保家卫国、守护国土安宁是人生最高使命。他本可归隐读书、享受平静生活；但当国难当头，他舍弃个人安逸、长期远离家人，领兵北伐抗金，将国家安全放在个人荣辱前面。" },
+    "人际和谐": { figure: "蔺相如", text: "你的“人生观”和蔺相如很类似，他把维护群体和睦、顾全大局，保持人际和谐作为重要准则。面对廉颇屡次出言羞辱，他本可以当庭争辩，争个人荣誉；但为保全赵国朝堂团结，选择优先维护人际和睦。" }
+  };
+
+  var LOSE_STORY = {
+    "人际和谐": {
+      part1: "战国时期的庞涓，与孙膑本是同门师兄弟，早年情谊深厚。庞涓先在魏国得到重用，担任大将军。他深知孙膑才华远超自己，内心嫉妒，不再维持同门之间的人际信任与和睦，设计罗织罪名，诬陷孙膑，对孙膑施以膑刑，砍去其膝盖骨，想让孙膑终身无法施展才能。\n他这种破坏人际和谐、残害同门的做法，让孙膑对他恨之入骨。后来孙膑投奔齐国，在桂陵之战、马陵之战两次设伏大败魏军。马陵一战，庞涓兵败自知无路可逃，自刎而死；魏国精锐主力覆灭，庞涓的功名、地位、军队全部化为乌有。",
+      moral: "可见，人际和谐有维系合作、避免内耗、减少对立冲突的意义。破坏人际信任与和睦，会催生强烈的敌对力量，最终反噬自身，让已有的权势、基业毁于内部人际矛盾。"
+    },
+    "社会贡献": {
+      part1: "隋炀帝杨广，即位之初掌握大一统王朝的雄厚国力。前期他修建大运河、营建东都，本可以造福天下。但后来他不再顾及百姓生计，舍弃了作为君主安定民生、造福社会的责任，无休止征发数百万民力，大兴土木、多次远征高句丽。繁重徭役兵役使得田地荒芜，百姓流离失所，饿殍遍地。他不再为社会提供安定环境，反而持续透支民力，激化全社会矛盾。\n各地农民起义接连爆发，天下大乱。隋朝统治根基崩塌，杨广困守江都，最终被部下兵变弑杀，隋朝迅速灭亡，他坐拥的江山、皇权全部丧失。",
+      moral: "可见，社会贡献有换取民心、稳固统治根基、维持社会秩序的意义。当掌权者放弃造福社会、漠视民众苦难，失去民众支持，再强大的政权也会瓦解，个人拥有的权力与财富终将丧失。"
+    },
+    "国家安全": {
+      part1: "西晋末年，晋惠帝时期掌权的赵王司马伦。西晋内部本就边疆不稳，匈奴、鲜卑等部族力量逐渐壮大，国家安全隐患持续存在。司马伦身为宗室重臣，完全舍弃守卫国家边境、维护王朝整体安全的责任，一心夺权。他发动政变，囚禁晋惠帝，篡夺皇位。为收买人心大肆封官，引发宗室诸王不满，直接引爆“八王之乱”。\n诸王连年混战，中原兵力大量消耗，国家边防空虚，无力抵御北方游牧民族。后续引发五胡乱华，中原沦陷。司马伦本人很快在诸王混战中兵败被杀；西晋国力被内战掏空，数十年后西晋灭亡，整个王朝覆灭，中原百姓陷入长期战乱浩劫。司马伦为一己权欲，放弃国家安全大局，不仅自身身死，也毁掉整个王朝基业。",
+      moral: "可见，国家安全有保障政权存续、守护国土与民众、维系国家生存根基的意义。舍弃国家安全，为私利消耗国防与国力，会引来外部祸患，再庞大的王朝也会倾覆，个人的地位、家族乃至国家都会不复存在。"
+    }
+  };
+
+  var REVIEW = {
+    "严肃模式": {
+      "事业成就": "你轻视了 “事业成就”，南唐后主李煜沉溺诗酒疏于治国，空有绝代文采，终致国破被俘，半生功业化为泡影。",
+      "家庭幸福": "你轻视了 “家庭幸福”，汉武帝晚年深陷巫蛊之祸，父子猜忌骨肉相残，温馨王室之家落得妻离子散的悲剧。",
+      "自我成长": "你忽视了 “自我成长”，方仲永年少天资卓绝却不再勤学精进，天赋日渐消磨，最终泯然众人，再无昔日光彩。",
+      "社会贡献": "你不重视 “社会贡献”，西晋权贵奢靡敛财、只顾私门享乐，不愿体恤百姓兴利除弊，民生凋敝，乱世由此滋生。",
+      "休闲自由": "你低估了 “休闲自由”，诸葛亮一生夙兴夜寐事必躬亲，常年殚精竭虑无暇休憩，积劳成疾，星落五丈原。",
+      "舒适生活": "你不重视 “舒适生活”，崇祯帝宵衣旰食、日夜操劳，却无力挽救王朝积弊，一生无安闲之日，最终自缢煤山，落得国亡身殒。",
+      "国家安全": "你轻视了 “国家安全”，天宝十四载，安史之乱爆发，盛唐繁华轰然破碎，中原大地战火连绵，万民流离失所。",
+      "人际和谐": "你忽视了 “人际和谐”，战国孙膑与庞涓本为同门，庞涓心生妒意构陷同窗，二人反目相残，终落得双双悲剧收场。"
+    },
+    "温暖模式": {
+      "事业成就": "你舍弃了 “事业成就”，但你守着本心从容度日，不必追逐高位虚名，在平凡日常里收获了内心的安宁与丰盈。",
+      "家庭幸福": "你舍弃了 “家庭幸福”，但你用孤身的坚守守护更多破碎的家庭，这份无私的付出，让世间多了脉脉温情。",
+      "自我成长": "你搁置了 “自我成长”，但你愿意停下脚步托举他人，把机会留给后辈，看着他们成长发光，心底满是暖意。",
+      "社会贡献": "你舍弃了 “社会贡献”，但你认真善待身边每一个人，小小的善意不断传递，温暖着周遭一方天地。",
+      "休闲自由": "你割舍了 “休闲自由”，但你选择陪伴所爱之人，把闲暇时光化作相守的点滴，平凡相处尽是温柔。",
+      "舒适生活": "你舍弃了 “舒适生活”，但你奔赴艰苦之地帮扶弱者，用汗水换来他人安稳，人间暖意因你而生。",
+      "国家安全": "你降低了 “国家安全” 的优先级，你依旧守着心中良善，珍惜眼前点滴温情，可安宁的根基早已悄然松动。",
+      "人际和谐": "你放下了 “人际和谐”，但你坚守内心道义，不违本心，纵然曲高和寡，依然保有一份纯粹善良。"
+    }
+  };
+
+  var FINAL_WORDS = "或许你最终的选择就是你的“人生观”的基本样态，请相信自己深思熟虑后的结果，不必惋惜那些放下的选项，人生从不是非此即彼的取舍，你也会在沿途遇见无数细碎又珍贵的美好。愿你心怀暖意，祝你旅途愉快！";
+
+  /* 历史数据：来自原 results.json（空数组代表“失去一切”结局） */
+  var SEED_RESULTS = [["社会贡献"], [], ["休闲自由"], ["舒适生活"], ["国家安全"], []];
+
+  /* ================= 28 组“两难抉择”历史类比 ================= */
+  var DILEMMAS = [
+    ["事业成就", "家庭幸福", "你所面临的事业成就和家庭幸福之间的两难抉择，历史上大禹也遇到过，治水大业重任在身，长久离家无法陪伴家人，他最终选择了扛起治水的事业。"],
+    ["事业成就", "自我成长", "你所面临的事业成就和自我成长之间的两难抉择，历史上苏轼也遇到过，朝堂功名近在眼前，却不愿为仕途顺遂磨灭本心，他最终选择守住持续向内求索的自我成长。"],
+    ["事业成就", "社会贡献", "你所面临的事业成就和社会贡献之间的两难抉择，历史上范仲淹也遇到过，安稳升迁可以成就个人仕途，而兴学安民要承担风险，他最终选择了惠及百姓的社会贡献。"],
+    ["事业成就", "休闲自由", "你所面临的事业成就和休闲自由之间的两难抉择，历史上陶渊明也遇到过，继续为官便能博取仕途功名，辞官归隐则可以自在随心，他最终选择了无拘无束的休闲自由。"],
+    ["事业成就", "舒适生活", "你所面临的事业成就和舒适生活之间的两难抉择，历史上张骞也遇到过，留在中原可以安稳度日，出使西域要历经苦寒艰险，他最终选择出使建功，追逐事业成就。"],
+    ["事业成就", "国家安全", "你所面临的事业成就和国家安全之间的两难抉择，历史上岳飞也遇到过，自保避战尚可保全个人前程，出兵抗金才能守护家国，他最终选择捍卫国家安全。"],
+    ["事业成就", "人际和谐", "你所面临的事业成就和人际和谐之间的两难抉择，历史上包拯也遇到过，徇情宽纵能维持周遭人情和睦，秉公断案才对得起公职，他最终选择坚守公事，放下人情妥协。"],
+    ["自我成长", "家庭幸福", "你所面临的家庭幸福和自我成长之间的两难抉择，历史上班昭也遇到过，安守闺中陪伴家人便是安稳幸福，续写汉书需要耗费大量心力求索，她最终选择坚持治学的自我成长。"],
+    ["社会贡献", "家庭幸福", "你所面临的家庭幸福和社会贡献之间的两难抉择，历史上林觉民也遇到过，与爱人相守是难得的家庭幸福，投身救国能为天下人谋出路，他最终选择舍小家去践行社会贡献。"],
+    ["休闲自由", "家庭幸福", "你所面临的家庭幸福和休闲自由之间的两难抉择，历史上李清照早年也曾遇到过，与赵明诚相守研藏金石是美满的家庭幸福，抛开家事独自漫游可以随心自在，她最终选择珍惜相伴的家庭幸福。"],
+    ["舒适生活", "家庭幸福", "你所面临的家庭幸福和舒适生活之间的两难抉择，历史上孟母也遇到过，安于旧居可以维持安逸日子，多次迁居是为了孩子成长、守护家庭长远幸福，她最终选择家庭幸福。"],
+    ["国家安全", "家庭幸福", "你所面临的家庭幸福和国家安全之间的两难抉择，历史上解忧公主也遇到过，留在长安和亲人团聚享有家庭幸福，远赴乌孙维系联盟才能稳固边疆国家安全，她最终选择奔赴西域，守护国家安全。"],
+    ["人际和谐", "家庭幸福", "你所面临的家庭幸福和人际和谐之间的两难抉择，历史上卓文君也遇到过，迁就旁人眼光可保全世俗人际和睦，坚守和司马相如的情意才是自己的家庭幸福，她最终选择家庭幸福。"],
+    ["自我成长", "社会贡献", "你所面临的自我成长和社会贡献之间的两难抉择，历史上李时珍也遇到过，闭门读书精进学识是自我成长，走遍山野采药著书能够造福万民，他最终选择惠及世人的社会贡献。"],
+    ["自我成长", "休闲自由", "你所面临的自我成长和休闲自由之间的两难抉择，历史上嵇康也遇到过，潜心悟道是持续的自我成长，放浪山水、不问世事是休闲自由，他最终选择随心自在的休闲自由。"],
+    ["自我成长", "舒适生活", "你所面临的自我成长和舒适生活之间的两难抉择，历史上玄奘也遇到过，留在长安享受安稳舒适的生活，西行求法要历经磨难、精进修行，他最终选择求取真知的自我成长。"],
+    ["自我成长", "国家安全", "你所面临的自我成长和国家安全之间的两难抉择，历史上班超也遇到过，伏案读书可以不断充实自我，投笔从戎方能安定西域国土，他最终选择奔赴边疆守护国家安全。"],
+    ["自我成长", "人际和谐", "你所面临的自我成长和人际和谐之间的两难抉择，历史上屈原也遇到过，随俗附和可以维持朝堂人际和睦，坚守本心求索大道才是自我成长，他最终选择忠于本心的自我成长。"],
+    ["社会贡献", "休闲自由", "你所面临的社会贡献和休闲自由之间的两难抉择，历史上谢灵运也遇到过，为官理政可以造福一方百姓，寄情山水能够获得自在闲暇，他最终选择山水间的休闲自由。"],
+    ["社会贡献", "舒适生活", "你所面临的社会贡献和舒适生活之间的两难抉择，历史上大禹也面临这样的考验，安居一地可得舒适生活，奔走治水救万民是社会贡献，他最终选择救民的社会贡献。"],
+    ["社会贡献", "国家安全", "你所面临的社会贡献和国家安全之间的两难抉择，历史上林则徐也遇到过，安稳治民是造福地方的社会贡献，虎门销烟抵御外患是守护国家安全，他最终选择捍卫国家安全。"],
+    ["社会贡献", "人际和谐", "你所面临的社会贡献和人际和谐之间的两难抉择，历史上海瑞也遇到过，曲意迎合官员群体可以维持人际和睦，清廉施政是造福百姓的社会贡献，他最终选择为民的社会贡献。"],
+    ["休闲自由", "舒适生活", "你所面临的休闲自由和舒适生活之间的两难抉择，历史上严光也遇到过，接受光武帝封赏可得荣华舒适生活，隐居垂钓才能拥有无拘无束的休闲自由，他最终选择休闲自由。"],
+    ["休闲自由", "国家安全", "你所面临的休闲自由和国家安全之间的两难抉择，历史上辛弃疾也遇到过，归隐田园能享受闲适自在，上阵抗敌才能保全家国，他最终选择心系国土、守护国家安全。"],
+    ["休闲自由", "人际和谐", "你所面临的休闲自由和人际和谐之间的两难抉择，历史上阮籍也遇到过，周旋官场人情可以维持人际和谐，远离俗世才能拥有休闲自由，他最终选择远离纷扰的休闲自由。"],
+    ["舒适生活", "国家安全", "你所面临的舒适生活和国家安全之间的两难抉择，历史上王昭君也遇到过，留在汉宫拥有安逸舒适生活，远嫁和亲可以平息边境战火、稳固国家安全，她最终选择守护国家安全。"],
+    ["舒适生活", "人际和谐", "你所面临的舒适生活和人际和谐之间的两难抉择，历史上柳下惠也遇到过，迎合权贵可以换取安逸日子与和睦人情，坚守操守宁愿舍弃舒适，他最终守住本心，没有妥协换取舒适生活。"],
+    ["人际和谐", "国家安全", "你所面临的国家安全和人际和谐之间的两难抉择，历史上烛之武也遇到过，附和秦国可以维持表面交好的人际和谐，劝退秦军才能保全郑国的国家安全，他最终选择守护国家安全。"]
+  ];
+
+  function dilemmaText(a, b) {
+    for (var i = 0; i < DILEMMAS.length; i++) {
+      var d = DILEMMAS[i];
+      if ((d[0] === a && d[1] === b) || (d[0] === b && d[1] === a)) return d[2];
+    }
+    return null;
+  }
+
+  /* ================= 成就彩蛋 ================= */
+  var EGG_JIAO = {
+    icon: "🌳", title: "焦裕禄的轨迹", name: "泡桐树",
+    text: "这世上，有人把安稳过成一生，也有人把一生交给了风沙。\n\n他先放下了城市里的安稳——1962 年的冬天，焦裕禄走进兰考，脚下是黄沙，碗里是风。\n再放下了属于自己的时辰——查风口、探流沙、治盐碱，他把白天走成一条线，把夜晚熬成一盏灯。\n最后放下的是屋檐下的团圆——妻儿留在身后，全县的饥寒被他抱进怀里。\n\n他种下的泡桐还在兰考站着。树不说话，风一过，就是回答。"
+  };
+  var EGG_YUE = {
+    icon: "🛡️", title: "岳飞的轨迹", name: "精忠报国",
+    text: "有人把一生走成一场远行，行囊里只装得下一个国家。\n\n他先放下了少年该有的安逸——别人在庭院里纳凉，他在灯下读兵书、在院里练枪，把筋骨磨成了甲胄。\n再放下了属于自己的光阴——三十年征尘，马背上过夜，风雪里扎营，没有一个完整的春天属于他。\n最后放下的是门内的灯火——母亲刺在背上的四个字，他背了一生；家人，被他留在了故乡的雨里。\n\n三十功名尘与土，八千里路云和月。这样的路走的人少，却总有人走。"
+  };
+  var EGG_LIN = {
+    icon: "🕯️", title: "林觉民的抉择", name: "为天下人谋永福",
+    text: "恭喜触发彩蛋！\n你选择让时间倒流，回到了家庭幸福与社会贡献之间的那个瞬间。\n有些抉择没有对错，只有代价。\n林觉民在《与妻书》里写下：吾充吾爱汝之心，助天下人爱其所爱。\n他舍下一人的相守，去换天下人都能相守的可能。"
+  };
+
+  /* 全部成就（成就墙用）；hint 只给模糊线索，不剧透具体路径 */
+  var ACH_LIST = [
+    { key: "泡桐树", icon: "🌳", title: "焦裕禄的轨迹", hint: "有一条路，从安逸走向风沙。" },
+    { key: "精忠报国", icon: "🛡️", title: "岳飞的轨迹", hint: "有一条路，把家国背在身上。" },
+    { key: "为天下人谋永福", icon: "🕯️", title: "林觉民的抉择", hint: "若有机会重来一次，你会回到哪个瞬间？" }
+  ];
+  var ACH_KEY = "efco_ach";
+
+  function loadAch() {
+    try {
+      var v = JSON.parse(localStorage.getItem(ACH_KEY) || "[]");
+      return Array.isArray(v) ? v : [];
+    } catch (e) { return []; }
+  }
+  function saveAch(name) {
+    var list = loadAch();
+    if (list.indexOf(name) === -1) { list.push(name); }
+    try { localStorage.setItem(ACH_KEY, JSON.stringify(list)); } catch (e) {}
+  }
+
+  function showEgg(egg, done) {
+    G.achievements.push(egg.name);
+    saveAch(egg.name);
+    var mask = document.createElement("div");
+    mask.className = "egg-mask";
+    mask.innerHTML =
+      '<div class="egg-card">' +
+      '  <div class="egg-rays"></div>' +
+      '  <div class="egg-badge">' + egg.icon + "</div>" +
+      '  <div class="egg-kicker">彩 蛋 达 成</div>' +
+      '  <div class="egg-title">' + esc(egg.title) + "</div>" +
+      '  <div class="egg-ach">成就 · ' + esc(egg.name) + "</div>" +
+      '  <div class="egg-text">' + esc(egg.text) + "</div>" +
+      '  <div class="egg-btn"><button class="btn" id="eggOk">收下这个成就</button></div>' +
+      "</div>";
+    document.body.appendChild(mask);
+    requestAnimationFrame(function () { mask.classList.add("show"); });
+    mask.querySelector("#eggOk").addEventListener("click", function () {
+      mask.classList.remove("show");
+      setTimeout(function () { if (mask.parentNode) mask.parentNode.removeChild(mask); }, 260);
+      done();
+    });
+  }
+
+  /* ================= 云端数据库（汇总所有玩家的结局） ================= */
+  var cloud = null;
+  if (window.WorkBuddyCloud) {
+    try {
+      cloud = WorkBuddyCloud.createWorkBuddyCloud({
+        endpoint: "https://extreme-five-choose-one.app.workbuddy.host",
+        oauthRelayBaseUrl: "https://www.workbuddy.cn/v2/as/genie-baas/oauth",
+        publishableKey: "wbpk_779c2jwjh45Yefy3hwqFkZ_meGVO4w5ZbvHEwzsh7sRcvJaaPivgkOz"
+      });
+    } catch (e) { cloud = null; }
+  }
+
+  /* ================= 游戏状态 ================= */
+  var G = {
+    hand: [],
+    track: [],
+    round: 1,
+    lastchoice: null,
+    finalCard: null,   /* null 表示失去一切 */
+    finalSource: null, /* elimination=淘汰剩下 / rewind=时间倒流重选 / lost=失去一切 */
+    mode: null,
+    yesterday: null,   /* 剩 2 张时的快照（回溯用） */
+    before: null,      /* 剩 3 张且踩惩罚牌时的快照（回溯用） */
+    rewound: false,    /* 本局是否选择了时间倒流 */
+    achievements: []
+  };
+
+  var app = document.getElementById("app");
+
+  function esc(t) {
+    return String(t).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function sample(arr, n) {
+    var a = arr.slice(), out = [];
+    while (out.length < n && a.length) {
+      out.push(a.splice(Math.floor(Math.random() * a.length), 1)[0]);
+    }
+    return out;
+  }
+  function stage(html) {
+    app.innerHTML = '<div class="stage">' + html + "</div>";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function cardHtml(c, clickable) {
+    return '<button class="vcard' + (clickable ? "" : " still") + '" data-card="' + esc(c) + '">' +
+      '<span class="ico">' + ICONS[c] + "</span>" + esc(c) + "</button>";
+  }
+  function continueBtn(label, fn) {
+    var b = document.createElement("button");
+    b.className = "btn";
+    b.textContent = label || "点击继续";
+    b.addEventListener("click", fn);
+    app.querySelector(".stage").appendChild(b);
+  }
+
+  /* ================= 成就墙 ================= */
+  function openAchWall() {
+    var got = loadAch();
+    var items = ACH_LIST.map(function (a) {
+      var has = got.indexOf(a.key) !== -1;
+      return '<div class="ach-item' + (has ? "" : " locked") + '">' +
+        '  <div class="ach-ico">' + (has ? a.icon : "🔒") + "</div>" +
+        '  <div><div class="ach-name">' + (has ? esc(a.key) : "？？？") + "</div>" +
+        '  <div class="ach-sub">' + (has ? esc(a.title) : esc(a.hint)) + "</div></div>" +
+        "</div>";
+    }).join("");
+    var pct = Math.round(got.length / ACH_LIST.length * 100);
+    var mask = document.createElement("div");
+    mask.className = "ach-mask";
+    mask.innerHTML =
+      '<div class="ach-card">' +
+      '  <div class="ach-hd">成 就 墙</div>' +
+      '  <div class="ach-prog">已解锁 ' + got.length + " / " + ACH_LIST.length + "  ·  " + pct + "%</div>" +
+      '  <div class="ach-bar"><i style="width:' + pct + '%"></i></div>' +
+      '  <div class="ach-grid">' + items + "</div>" +
+      '  <div class="ach-close"><button class="btn" id="achOk">关闭</button></div>' +
+      "</div>";
+    document.body.appendChild(mask);
+    requestAnimationFrame(function () { mask.classList.add("show"); });
+    var close = function () {
+      mask.classList.remove("show");
+      setTimeout(function () { if (mask.parentNode) mask.parentNode.removeChild(mask); }, 260);
+    };
+    mask.querySelector("#achOk").addEventListener("click", close);
+    mask.addEventListener("click", function (e) { if (e.target === mask) close(); });
+  }
+
+  /* ================= 场景 ================= */
+  /* 根据复盘模式切换整页主题（配色 + 装饰元素） */
+  function applyTheme(mode) {
+    var body = document.body;
+    body.classList.remove("theme-serious", "theme-warm");
+    var decor = document.getElementById("decor");
+    decor.innerHTML = "";
+    var i, el;
+    if (mode === "严肃模式") {
+      body.classList.add("theme-serious");
+      /* 冷色线条 */
+      for (i = 0; i < 14; i++) {
+        el = document.createElement("div");
+        el.className = "deco-line";
+        el.style.width = (120 + Math.random() * 280) + "px";
+        el.style.left = (Math.random() * 100) + "%";
+        el.style.top = (Math.random() * 100) + "%";
+        el.style.transform = "rotate(" + Math.floor(Math.random() * 180) + "deg)";
+        el.style.background = "rgba(93, 127, 163, " + (0.10 + Math.random() * 0.12).toFixed(2) + ")";
+        decor.appendChild(el);
+      }
+    } else if (mode === "温暖模式") {
+      body.classList.add("theme-warm");
+      /* 暖色圆圈 */
+      var warmColors = ["224, 129, 90", "217, 95, 67", "201, 150, 46", "232, 163, 124"];
+      for (i = 0; i < 12; i++) {
+        el = document.createElement("div");
+        el.className = "deco-circle";
+        var size = 24 + Math.random() * 110;
+        el.style.width = size + "px";
+        el.style.height = size + "px";
+        el.style.left = (Math.random() * 100) + "%";
+        el.style.top = (Math.random() * 100) + "%";
+        var c = warmColors[Math.floor(Math.random() * warmColors.length)];
+        if (Math.random() < 0.5) {
+          el.style.background = "rgba(" + c + ", " + (0.06 + Math.random() * 0.08).toFixed(2) + ")";
+        } else {
+          el.style.border = "2px solid rgba(" + c + ", " + (0.12 + Math.random() * 0.12).toFixed(2) + ")";
+        }
+        decor.appendChild(el);
+      }
+    } else {
+    }
+  }
+
+  function sceneStart() {
+    applyTheme(null);
+    stage(
+      '<div class="game-title">极限五选一</div>' +
+      '<div class="game-sub">EXTREME FIVE-CHOOSE-ONE</div>' +
+      '<div class="lead">人生是一场不断取舍的旅程。<br>' +
+      "系统将随机发给你 <b>5</b> 张“人生底牌”，<br>" +
+      "每一轮，请舍弃一张你认为<b>最不重要</b>的牌。<br>" +
+      "有些舍弃，代价超乎你的想象……<br>" +
+      "最后留下的，就是你的人生观。</div>"
+    );
+    var got = loadAch();
+    var entry = document.createElement("button");
+    entry.className = "ach-entry";
+    entry.innerHTML = '<span class="ach-dot"></span>成就墙 · ' + got.length + " / " + ACH_LIST.length;
+    entry.addEventListener("click", openAchWall);
+    app.querySelector(".stage").appendChild(entry);
+    continueBtn("开始游戏", function () {
+      G.hand = sample(ALL, 5);
+      G.track = [];
+      G.round = 1;
+      G.lastchoice = null;
+      G.finalCard = null;
+      G.finalSource = null;
+      G.mode = null;
+      G.yesterday = null;
+      G.before = null;
+      G.achievements = [];
+      G.rewound = false;
+      sceneRound();
+    });
+  }
+
+  function sceneRound() {
+    var cards = G.hand.map(function (c) { return cardHtml(c, true); }).join("");
+    stage(
+      '<div class="center"><span class="round-tag">第 ' + G.round + " 轮 · 剩余 " + G.hand.length + ' 张</span></div>' +
+      '<div class="prompt">这是你现在所拥有的，<br>请选择一个你认为<b>最不重要</b>的，舍弃它：</div>' +
+      '<div class="hand">' + cards + "</div>"
+    );
+    var btns = app.querySelectorAll(".vcard");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        onDiscard(this.getAttribute("data-card"));
+      });
+    }
+  }
+
+  function onDiscard(c) {
+    /* 只剩两张时：先问「你想清楚了吗？」——给玩家一个反悔的台阶 */
+    if (G.hand.length === 2) { askConfirm(c); return; }
+    applyDiscard(c);
+  }
+
+  function askConfirm(c) {
+    G.yesterday = G.hand.slice();   /* 回溯快照：最后两张 */
+    stage(
+      '<div class="center"><span class="round-tag">最后两张</span></div>' +
+      '<div class="prompt">这是你仅剩的两张牌：</div>' +
+      '<div class="hand">' + G.hand.map(function (x) { return cardHtml(x, false); }).join("") + "</div>" +
+      '<div class="prompt" style="margin-top:20px">你正要舍弃 <b>「' + esc(c) + '」</b>。<br>这意味着它之后就永远不在你手里了。</div>' +
+      '<div class="prompt" style="margin-top:14px"><b>你想清楚了吗？</b></div>' +
+      '<div class="btn-row">' +
+      '  <button class="btn" id="cfmYes">想清楚了</button>' +
+      '  <button class="btn ghost" id="cfmNo">我再想想</button>' +
+      "</div>"
+    );
+    document.getElementById("cfmYes").addEventListener("click", function () { applyDiscard(c); });
+    document.getElementById("cfmNo").addEventListener("click", function () {
+      stage('<div class="narrative">你把手收了回来。<br>有些决定，值得多想一会儿。</div>');
+      continueBtn("重新选择", sceneRound);
+    });
+  }
+
+  function applyDiscard(c) {
+    if (G.hand.length === 3 && PENALTY_TEXT[c]) G.before = G.hand.slice();
+    G.track.push(c);
+    var idx = G.hand.indexOf(c);
+    if (idx >= 0) G.hand.splice(idx, 1);
+
+    var msgs = [];
+    if (EFFECT_TEXT[c]) msgs.push(EFFECT_TEXT[c]);
+    var isPenalty = !!PENALTY_TEXT[c];
+
+    if (isPenalty) {
+      msgs.push(PENALTY_TEXT[c]);
+      /* 与原逻辑一致：本回合额外失去一张 */
+      if (G.hand.length === 1) G.lastchoice = c;   /* 舍弃后仅剩1张时被抢 → 失去一切 */
+      if (G.hand.length > 0) {
+        var extra = sample(G.hand, 1)[0];
+        G.hand.splice(G.hand.indexOf(extra), 1);
+        msgs.push(PENALTY_EXTRA + "「" + extra + "」");
+      }
+    } else if (!EFFECT_TEXT[c]) {
+      msgs.push("你放下了「" + c + "」，你认为有比这更重要的事情值得追求。");
+    }
+
+    showMsgs(msgs, function () {
+      if (G.hand.length > 1) {
+        G.round++;
+        sceneRound();
+      } else if (G.hand.length === 1) {
+        G.finalCard = G.hand[0];
+        G.finalSource = "elimination";
+        sceneKeptEnding();
+      } else {
+        G.finalSource = "lost";
+        sceneLostEnding();
+      }
+    });
+  }
+
+  /* 依次展示若干段文字，每段之间“点击继续” */
+  function showMsgs(msgs, done) {
+    var i = 0;
+    function next() {
+      if (i >= msgs.length) { done(); return; }
+      stage('<div class="narrative">' + esc(msgs[i]).replace(/\n/g, "<br>") + "</div>");
+      i++;
+      continueBtn("点击继续", next);
+    }
+    next();
+  }
+
+  function sceneKeptEnding() {
+    var e = KEPT_ENDING[G.finalCard];
+    stage(
+      '<div class="prompt">这是你认为自己<b>最重要</b>的牌：</div>' +
+      '<div class="hand">' + cardHtml(G.finalCard, false) + "</div>"
+    );
+    continueBtn("点击继续", function () {
+      stage('<div class="narrative">' + esc(e.text) + "</div>");
+      continueBtn("点击继续", sceneReviewIntro);
+    });
+  }
+
+  function sceneLostEnding() {
+    var story = LOSE_STORY[G.lastchoice];
+    stage('<div class="narrative">由于你舍弃了 <em>「' + esc(G.lastchoice) + "」</em>，你失去了所有你本拥有的全部。</div>");
+    continueBtn("点击继续", function () {
+      if (!story) { sceneReviewIntro(); return; }
+      showMsgs([story.part1, story.moral], sceneReviewIntro);
+    });
+  }
+
+  function sceneReviewIntro() {
+    var seq = G.track.join(" → ");
+    stage(
+      '<div class="prompt"><b>复盘时刻</b></div>' +
+      '<div class="narrative" style="text-align:center">你的舍弃顺序为：<br><em>' + esc(seq) + "</em> → 你的最终结局</div>" +
+      '<div class="prompt" style="margin-top:18px">请选择你的复盘模式：</div>' +
+      '<div class="mode-row">' +
+      '  <button class="mode-card serious" data-mode="严肃模式"><div class="mt">严肃模式</div><div class="md">以史为镜<br>直视每一次舍弃的代价</div></button>' +
+      '  <button class="mode-card warm" data-mode="温暖模式"><div class="mt">温暖模式</div><div class="md">温柔回望<br>看见每一次放下后的光</div></button>' +
+      "</div>"
+    );
+    var btns = app.querySelectorAll(".mode-card");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        G.mode = this.getAttribute("data-mode");
+        applyTheme(G.mode);
+        checkTrackEgg(function () { sceneReview(0); });
+      });
+    }
+  }
+
+  function sceneReview(i) {
+    if (i >= G.track.length) { sceneCallback(); return; }
+    var c = G.track[i];
+    stage(
+      '<div class="center"><span class="round-tag">复盘 · 第 ' + (i + 1) + " 轮</span></div>" +
+      '<div class="prompt">你在第 ' + (i + 1) + " 轮舍弃了：<b>" + esc(c) + "</b></div>" +
+      '<div class="narrative">' + esc(REVIEW[G.mode][c]) + "</div>"
+    );
+    continueBtn("点击继续", function () { sceneReview(i + 1); });
+  }
+
+  /* ================= 回溯（时间倒流）+ 两难抉择 + 彩蛋 ================= */
+  function snapshot() {
+    if (G.before && G.before.length === 3) return G.before;
+    return G.yesterday;
+  }
+
+  function checkTrackEgg(done) {
+    var t = G.track;
+    var egg = null;
+    if (hitTriple(t)) {
+      if (G.finalCard === "社会贡献") egg = EGG_JIAO;
+      else if (G.finalCard === "国家安全") egg = EGG_YUE;
+    }
+    if (egg) showEgg(egg, done); else done();
+  }
+
+  /* 轨迹里只要「舒适生活 → 休闲自由 → 家庭幸福」按先后顺序出现过即可（不要求连续、中间可夹别的牌） */
+  function hitTriple(t) {
+    var a = t.indexOf("舒适生活");
+    var b = t.indexOf("休闲自由");
+    var c = t.indexOf("家庭幸福");
+    return a >= 0 && b > a && c > b;
+  }
+
+  function sceneCallback() {
+    stage(
+      '<div class="prompt"><b>你有一次回溯的机会</b></div>' +
+      '<div class="narrative">回到上一次选择前，是否选择时间倒流？</div>' +
+      '<div class="btn-row">' +
+      '  <button class="btn" id="cbYes">是，回到那个瞬间</button>' +
+      '  <button class="btn ghost" id="cbNo">不了，谢谢</button>' +
+      "</div>"
+    );
+    document.getElementById("cbYes").addEventListener("click", sceneRewind);
+    document.getElementById("cbNo").addEventListener("click", function () {
+      stage('<div class="narrative">你放弃了时间倒流的机会，<br>因为你相信，未来比过去更值得追求。</div>');
+      continueBtn("点击继续", function () { showDilemma(sceneFinal); });
+    });
+  }
+
+  function sceneRewind() {
+    var snap = snapshot();
+    if (!snap || snap.length < 2) { showDilemma(sceneFinal); return; }
+    G.rewound = true;   /* 只要选择了时间倒流，就记为回溯过 */
+    stage(
+      '<div class="center"><span class="round-tag">时 间 倒 流</span></div>' +
+      '<div class="prompt">这是你那时所拥有的：</div>' +
+      '<div class="hand">' + snap.map(function (x) { return cardHtml(x, true); }).join("") + "</div>" +
+      '<div class="prompt" style="margin-top:18px">这一次，你决定将哪一张视为你<b>最重要</b>的牌？</div>'
+    );
+    var btns = app.querySelectorAll(".vcard");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var pick = this.getAttribute("data-card");
+        /* 只有真正改选了另一张牌，最终牌才算「来自回溯」；
+           若回溯后仍选回原来那张，最终牌依旧由淘汰序列决定 */
+        var prev = G.finalCard;
+        G.finalCard = pick;
+        G.finalSource = (pick === prev) ? "elimination" : "rewind";
+        var e = KEPT_ENDING[pick];
+        var txt = e ? e.text.replace("你的“人生观”和", "你的选择和").replace("很类似", "的“人生观”很相似") : "";
+        stage('<div class="narrative">' + esc(txt) + "</div>");
+        continueBtn("点击继续", function () { showDilemma(sceneFinal); });
+      });
+    }
+  }
+
+  function showDilemma(done) {
+    var snap = snapshot();
+    if (!snap || snap.length < 2) { done(); return; }
+    var texts = [];
+    for (var i = 0; i < snap.length; i++) {
+      for (var j = i + 1; j < snap.length; j++) {
+        var t = dilemmaText(snap[i], snap[j]);
+        if (t) texts.push(t);
+      }
+    }
+    var finish = function () {
+      /* 林觉民彩蛋：只要玩家选了「时间倒流」，回到家庭幸福与社会贡献的两难里，
+         无论最后留下哪一张，都触发 */
+      if (G.rewound && snap.indexOf("社会贡献") >= 0 && snap.indexOf("家庭幸福") >= 0) {
+        showEgg(EGG_LIN, done);
+      } else {
+        done();
+      }
+    };
+    if (!texts.length) { finish(); return; }
+    showMsgs(texts, finish);
+  }
+
+  function recordResultLocal() {
+    /* 本地兜底统计（云端不可用时使用） */
+    var mine = G.finalCard ? [G.finalCard] : [];
+    var all = SEED_RESULTS.slice();
+    try {
+      var local = JSON.parse(localStorage.getItem("efco_results") || "[]");
+      all = all.concat(local);
+      local.push(mine);
+      localStorage.setItem("efco_results", JSON.stringify(local));
+    } catch (e) {}
+    all.push(mine);
+    var same = 0;
+    for (var i = 0; i < all.length; i++) {
+      if (JSON.stringify(all[i]) === JSON.stringify(mine)) same++;
+    }
+    return (same / all.length * 100).toFixed(2) + "%";
+  }
+
+  function recordResult(done) {
+    /* 优先上报云端并按全量云端数据统计；失败时退回本地统计 */
+    var mine = G.finalCard || "";   /* 空字符串 = 失去一切 */
+    if (!cloud) { done(recordResultLocal()); return; }
+    cloud.database.from("game_results").insert({
+      final_card: mine,
+      lost_all: !G.finalCard,
+      mode: G.mode,
+      track: G.track.join("→"),
+      achievements: G.achievements.join("、"),   /* 本局触发的彩蛋，多枚用「、」分隔 */
+      rewound: !!G.rewound,                       /* 是否用过时间倒流 */
+      final_source: G.finalSource || (G.finalCard ? "elimination" : "lost"),  /* 最终牌来源 */
+      source: "web"
+    }).then(function () {
+      return Promise.all([
+        cloud.database.from("game_results").select("*", { count: "exact", head: true }),
+        cloud.database.from("game_results").select("*", { count: "exact", head: true }).eq("final_card", mine)
+      ]);
+    }).then(function (rs) {
+      var total = rs[0].count, same = rs[1].count;
+      if (total && same != null) {
+        done((same / total * 100).toFixed(2) + "%");
+      } else {
+        done(recordResultLocal());
+      }
+    }).catch(function () {
+      done(recordResultLocal());
+    });
+  }
+
+  function sceneFinal() {
+    stage(
+      '<div class="prompt"><b>说在最后的话：</b></div>' +
+      '<div class="narrative">' + esc(FINAL_WORDS) + "</div>" +
+      '<div class="divider"></div>' +
+      '<div class="stat-line" id="statLine">正在汇总全网玩家数据…</div>' +
+      '<div class="prompt" style="margin-top:26px"><b>是否查看你的结果报告？</b></div>' +
+      '<div class="btn-row">' +
+      '  <button class="btn" id="btnYes">查看结果报告</button>' +
+      '  <button class="btn ghost" id="btnNo">不了，谢谢</button>' +
+      "</div>"
+    );
+    var g2 = loadAch();
+    var e2 = document.createElement("button");
+    e2.className = "ach-entry";
+    e2.innerHTML = '<span class="ach-dot"></span>看看成就墙 · ' + g2.length + " / " + ACH_LIST.length;
+    e2.addEventListener("click", openAchWall);
+    app.querySelector(".stage").appendChild(e2);
+
+    recordResult(function (percent) {
+      var el = document.getElementById("statLine");
+      if (el) el.innerHTML = "有 <b>" + percent + "</b> 的人和你有相似的人生观";
+      document.getElementById("btnYes").addEventListener("click", function () { showPoster(percent); });
+    });
+    document.getElementById("btnNo").addEventListener("click", function () {
+      stage(
+        '<div class="lead">感谢你的认真作答。<br>愿你心怀暖意，旅途愉快。</div>' +
+        '<div class="stat-line">随时刷新页面，可以再来一局。</div>'
+      );
+      continueBtn("再来一局", sceneStart);
+    });
+  }
+
+  /* ================= 海报 ================= */
+  /* 海报文案：两套语气，随复盘模式切换 */
+  var POSTER_COPY = {
+    "温暖模式": {
+      sub: "人 生 取 舍 · 温 暖 回 望",
+      quote: "你放下的那些，后来都成了你走过来的路。",
+      endTitle: "你最终守住的",
+      keptBig: "你最终守住了「",
+      keptTail: "」",
+      lostBig: "最终结局：你失去了一切",
+      tlTitle: "你放下它们的顺序",
+      roundWord: "放下",
+      achTitle: "你点亮的光",
+      achLabel: "已点亮",
+      inviteB: "扫码，邀 TA 也来走一遍",
+      inviteT: "每个人都在取舍里慢慢长成自己。看看 Ta 最后会留下什么。",
+      statTail: "愿你不孤单"
+    },
+    "严肃模式": {
+      sub: "人 生 取 舍 · 以 史 为 镜",
+      quote: "所有舍弃都有代价，所有代价都有回声。",
+      endTitle: "最终结局",
+      keptBig: "你最终坚守了「",
+      keptTail: "」",
+      lostBig: "最终结局：失去了一切",
+      tlTitle: "舍 弃 轨 迹",
+      roundWord: "舍弃",
+      achTitle: "成 就 收 集",
+      achLabel: "成就收集",
+      inviteB: "扫码，让 TA 也来受一次审视",
+      inviteT: "八样东西，最终只能留一样。历史会记住每一次割舍。",
+      statTail: "与你同路的人"
+    }
+  };
+
+  function showPoster(percent) {
+    var warm = G.mode !== "严肃模式";
+    var poster = document.getElementById("poster");
+    poster.className = "poster " + (warm ? "warm" : "serious");
+    var C = POSTER_COPY[warm ? "温暖模式" : "严肃模式"];
+
+    var endingHtml;
+    if (G.finalCard) {
+      var e = KEPT_ENDING[G.finalCard];
+      endingHtml =
+        '<span class="big">' + C.keptBig + esc(G.finalCard) + C.keptTail + "</span>" +
+        "与 <b>" + esc(e.figure) + "</b> 相似的人生观 —— " + esc(e.text);
+    } else {
+      var s = LOSE_STORY[G.lastchoice];
+      endingHtml =
+        '<span class="big">' + C.lostBig + "</span>" +
+        "因为最后舍弃了 <b>「" + esc(G.lastchoice) + "」</b>，你失去了所有本拥有的全部。" +
+        (s ? "<br>" + esc(s.moral) : "");
+    }
+
+    var tl = G.track.map(function (c, i) {
+      return '<div class="tl-item"><div class="tl-t">第 ' + (i + 1) + " 轮 · " + C.roundWord + "「" + esc(c) + "」</div>" +
+        '<div class="tl-d">' + esc(REVIEW[G.mode][c]) + "</div></div>";
+    }).join("");
+
+    /* 成就收集进度：始终显示（含本局新解锁的高亮） */
+    var achAll = loadAch();
+    var achPct = Math.round(achAll.length / ACH_LIST.length * 100);
+    var achIcons = ACH_LIST.map(function (a) {
+      var has = achAll.indexOf(a.key) !== -1;
+      return '<span class="p-ach-ico' + (has ? "" : " off") + '" title="' + esc(a.key) + '">' + (has ? a.icon : "🔒") + "</span>";
+    }).join("");
+    var achHtml =
+      '<div class="p-sec-title">' + C.achTitle + "</div>" +
+      '<div class="p-achbar">' +
+      '  <div class="p-achbar-top"><span>' + C.achLabel + ' <b class="n">' + achAll.length + "</b> / " + ACH_LIST.length + "</span><span>" + achPct + "%</span></div>" +
+      '  <div class="p-achbar-track"><i style="width:' + achPct + '%"></i></div>' +
+      '  <div class="p-achbar-icons">' + achIcons + "</div>" +
+      (G.achievements.length
+        ? '<div class="p-ach-new">本局解锁 ' + G.achievements.map(function (a) { return "★ " + esc(a); }).join(" · ") + "</div>"
+        : "") +
+      "</div>";
+
+    poster.innerHTML =
+      '<div class="p-head"><div class="pt">极限五选一</div><div class="ps">' + C.sub + "</div></div>" +
+      '<div class="p-body">' +
+      '  <div class="p-quote">' + C.quote + "</div>" +
+      '  <div class="p-sec-title">' + C.endTitle + "</div>" +
+      '  <div class="p-ending">' + endingHtml + "</div>" +
+      '  <div class="p-sec-title">' + C.tlTitle + "</div>" +
+      '  <div class="timeline">' + tl + "</div>" +
+      achHtml +
+      '  <div class="p-foot">' +
+      '    <div class="p-qr"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAFAAQMAAAD3XjfpAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACaUlEQVRoge2aPZKrQAyE5dqA0EfgKBwNjsZR5giEBJT1plsawK7dCJmXSMEahm+SFa2/QSQtxtStXj7Xn1f96Zeu3k/S6/Y4PU0wCJzwb3+ojPNztY0LVkYtXIb9JBgJDgoX2Ip75gXewFF1TfAboK2ozkIPyVC6LcEvgjJQAtUzuj4Ye9Y/XJjgTSAecqVmA4qFmpmG8lc0S/AS2BItskINUjr3Dex+z9cJXgIPgyTqxpk3fLzJr5bgFdBW6IKFaWAoT3UpwFFTddSWYDDImAMp1Mu554oH+/r7PGsmwdtA1Pq8PFoA9QKpZgNlgWraSTAMZOk/zmwBqB3u663n9QI1wSgQ2cANUkCQWtvya+95E4wCSeBdh2dove2arbKv1h1BKsHLIFywMMiYKxBz2lTBpCAeexK8F0S+XT62MkghOaAVcwklGAQKS1B1cbwsDVMrvQWpcrgwwQDQxjgipyaXMaqNcWyEn2AciCfec6GypGfMYWzB5Oi5ErwZrC3AxmBlx1c+WKvpGxKSvSJNMAg8jy65kWmAUvoMUglGgLoX+Zwq4N3HNAEVaWty99I1wQBwEg5qcG5FF/iADZPN1vO2QjPBEHBwzwxcwbsvPqtHDph63WNPgjeDxdKv+wwnuTw+LB3pcnyrkGAAuNvo854WpLRQK2M7oE0wBlS3j69xWv0JUE+nKQleBif83Y++qQhqAOCbZxIMAgf/GsdL+Xrr54UWe/StG07wv4CUho8faDhkKZLgd0AbYcIQrMZ9uH80uQmGgB6kGji3nkv8WwVNMBR04/dmNijjrYiPcd4/DknwNjAtwv4BnxMnaGpoqC0AAAAASUVORK5CYII=" alt="扫码来玩"></div>' +
+      '    <div class="p-invite"><span class="b">' + C.inviteB + "</span>" + C.inviteT + "</div>" +
+      "  </div>" +
+      '  <div class="p-stat">有 ' + esc(percent) + " 的人和你有相似的人生观 · " + C.statTail + "</div>" +
+      "</div>";
+
+    document.getElementById("posterImgBox").style.display = "none";
+    document.getElementById("posterMask").classList.add("show");
+  }
+
+  /* 把海报 DOM 渲染成 PNG：电脑端直接下载，手机端展示图片供长按保存 */
+  function savePoster() {
+    var btn = document.getElementById("posterSave");
+    var posterEl = document.getElementById("poster");
+    if (typeof html2canvas === "undefined") {
+      document.getElementById("posterTip").textContent = "图片组件未加载成功，请直接截图保存海报";
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = "正在生成图片…";
+    html2canvas(posterEl, { scale: 2, useCORS: true, backgroundColor: null }).then(function (canvas) {
+      var url = canvas.toDataURL("image/png");
+      /* 手机端：显示图片，长按即可存相册 */
+      document.getElementById("posterImg").src = url;
+      document.getElementById("posterImgBox").style.display = "block";
+      /* 电脑端：同时触发下载 */
+      canvas.toBlob(function (blob) {
+        if (!blob) return;
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "极限五选一-结果报告.png";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+      }, "image/png");
+      btn.disabled = false;
+      btn.textContent = "保存海报到相册";
+    }).catch(function () {
+      btn.disabled = false;
+      btn.textContent = "保存海报到相册";
+      document.getElementById("posterTip").textContent = "生成失败，请直接截图保存海报";
+    });
+  }
+  document.getElementById("posterSave").addEventListener("click", savePoster);
+  document.getElementById("posterClose").addEventListener("click", function () {
+    document.getElementById("posterMask").classList.remove("show");
+    stage(
+      '<div class="lead">报告已生成，欢迎把海报分享给朋友。<br>愿你心怀暖意，旅途愉快。</div>'
+    );
+    continueBtn("再来一局", sceneStart);
+  });
+
+  sceneStart();
+})();
+</script>
+</body>
+</html>
